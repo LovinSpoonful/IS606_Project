@@ -1,0 +1,121 @@
+---
+title: "Research Proposal"
+author: "Rob Hodde"
+date: "March 6, 2016"
+output: html_document
+---
+
+```{r include=FALSE, cache=FALSE}
+# DO NOT REMOVE
+# THIS IS FOR SETTING SOME PLOTTING PARAMETERS SO THAT YOUR PLOTS DON'T TAKE UP TOO MUCH SPACE
+# IF YOU WOULD LIKE TO CHANGE THESE, SEE HELP FILES ON THE par() FUNCTION
+# OR ASK FOR HELP
+library(knitr)
+## set global chunk options
+opts_chunk$set(fig.path='figure/manual-', cache.path='cache/manual-', fig.align='center', fig.show='hold', par=TRUE)
+## tune details of base graphics (http://yihui.name/knitr/hooks)
+knit_hooks$set(par=function(before, options, envir){
+if (before && options$fig.show!='none') par(mar=c(4,4,.2,.1),cex.lab=.95,cex.axis=.9,mgp=c(2,.7,0),tcl=-.3)
+})
+```
+
+```{r, echo=FALSE}
+
+# load data
+trade <- read.csv(file = "https://raw.githubusercontent.com/LovinSpoonful/IS606_Project/6a550d07ac2ecf63ff4c438bfe79856ed21e9a38/US_China_Trade.csv", header=TRUE, sep=",") # read in the trade data
+
+jobs <- read.csv(file = "https://raw.githubusercontent.com/LovinSpoonful/IS606_Project/6a550d07ac2ecf63ff4c438bfe79856ed21e9a38/US_Mfg_Employment.csv", header=TRUE, sep=",") # read in the jobs data
+
+```
+
+
+### Research question 
+
+Did the change in U.S. trade policy toward China in 2001 cause the dramatic drop in U.S. manufacturing jobs?
+
+
+### Cases 
+
+We will look at U.S. manufacturing employment from 1985 to 2015, compared to the amount of manufactured goods imported from China, for a total of 30 cases.
+
+### Data collection 
+
+Data will be sourced primarily from the U.S. Bureau of Labor Statistics, with supplemental analysis from The National Bureau of Economic Research and The Economic Policy Institute.
+
+
+### Type of study 
+
+This is an observational study.
+
+
+### Data Source 
+
+```
+Data sources include:
+
+http://www.census.gov/foreign-trade/balance/c5700.html#2012
+http://data.bls.gov/pdq/SurveyOutputServlet
+http://www.epi.org/files/page/-/old/workingpapers/epi_wp270_tables.pdf
+http://www.epi.org/publication/china-trade-outsourcing-and-jobs/
+http://www.nber.org/papers/w18655.pdf 
+http://useconomy.about.com/od/tradepolicy/tp/How-Jobs-Outsourcing-Affects-US-Economy.htm
+http://useconomy.about.com/od/tradepolicy/p/us-china-trade.htm
+
+```
+
+### Response 
+
+```
+The response variable is overall U.S. manufacturing employment by year. It is numerical.
+```
+
+### Explanatory 
+
+```
+The explanatory variable is the total amount of manufactured goods imported from China by year.  It is numerical.
+```
+
+### Relevant summary statistics 
+
+**Provide summary statistics relevant to your research question. For example, if you're comparing means across groups provide means, SDs, sample sizes of each group. This step requires the use of R, hence a code chunk is provided below. Insert more code chunks as needed.**
+
+```
+The following chart illustrates the value of goods imported from China from 1985 through 2015.
+
+```
+    
+```{r, echo=FALSE}
+
+t <- subset(trade, select = c("Year","Imports"))
+
+t$Year <- as.numeric(as.character(t$Year))
+t$Imports <- gsub(",","",t$Imports)
+t$Imports <- as.numeric(as.character(t$Imports))/1000
+
+plot(t, main = "US Imports from China",xlab = "Year", ylab = "USD - Millions")
+
+```
+
+
+```
+The following chart illustrates total U.S. manufacturing employment from 1985 through 2015.
+
+```
+  
+  
+```{r, echo=FALSE}
+
+jobs$Year <- as.numeric(as.character(jobs$Year))
+jobs$Jobs <- as.numeric(as.character(jobs$Jobs))
+
+plot(jobs, main = "US Manufacturing Employment",xlab = "Year", ylab = "Employees (000's)")
+
+```
+
+
+
+
+
+
+
+
